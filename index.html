@@ -5,6 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Education Trends</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['table']});
+        google.charts.setOnLoadCallback(loadResearchDatabase);
+
+        function loadResearchDatabase() {
+            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1xFafgnUSj-ft4zDP3Bx2mqc3QuJUbUqQJrorRYXB18s/gviz/tq?gid=0');
+            query.send(handleDatabaseResponse);
+        }
+
+        function handleDatabaseResponse(response) {
+            if (response.isError()) {
+                alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+
+            var data = response.getDataTable();
+            for (var i = 0; i < data.getNumberOfRows(); i++) {
+                var researchId = data.getValue(i, 0);
+                var sheetId = data.getValue(i, 1);
+                var gid = data.getValue(i, 2);
+                var title = data.getValue(i, 3);
+                var description = data.getValue(i, 4);
+
+                var section = document.createElement('section');
+                section.id = researchId;
+                section.innerHTML = '<h2>' + title + '</h2><p>' + description + '</p><div id="table_' + researchId + '"></div>';
+                document.getElementById('research').appendChild(section);
+
+                drawTable('table_' + researchId, sheetId, gid);
+            }
+        }
+
+        function drawTable(elementId, sheetId, gid) {
+            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sheetId + '/gviz/tq?gid=' + gid);
+            query.send(function(response) {
+                if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;
+                }
+
+                var data = response.getDataTable();
+                var table = new google.visualization.Table(document.getElementById(elementId));
+
+                table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+            });
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -23,8 +71,8 @@
             <p>Здесь будут размещены наши статьи о современных тенденциях в образовании.</p>
         </section>
         <section id="research">
-            <h2>Research about Education Trends at School</h2>
-            <p>Здесь будут представлены результаты наших исследований и аналитики.</p>
+            <h2>Research about Trends in Education</h2>
+            <!-- Динамически добавляемые секции исследований -->
         </section>
         <section id="contact">
             <h2>Contacts</h2>
