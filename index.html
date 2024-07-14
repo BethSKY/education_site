@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['table']});
+        google.charts.load('current', {'packages':['table', 'corechart']});
         google.charts.setOnLoadCallback(loadResearchDatabase);
 
         function loadResearchDatabase() {
-            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1xFafgnUSj-ft4zDP3Bx2mqc3QuJUbUqQJrorRYXB18s/gviz/tq?gid=0');
+            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/YOUR_DATABASE_SHEET_ID/gviz/tq?gid=0');
             query.send(handleDatabaseResponse);
         }
 
@@ -31,10 +31,11 @@
 
                 var section = document.createElement('section');
                 section.id = researchId;
-                section.innerHTML = '<h2>' + title + '</h2><p>' + description + '</p><div id="table_' + researchId + '"></div>';
+                section.innerHTML = '<h2>' + title + '</h2><p>' + description + '</p><div id="chart_' + researchId + '"></div><div id="table_' + researchId + '"></div>';
                 document.getElementById('research').appendChild(section);
 
                 drawTable('table_' + researchId, sheetId, gid);
+                drawChart('chart_' + researchId, sheetId, gid);
             }
         }
 
@@ -50,6 +51,21 @@
                 var table = new google.visualization.Table(document.getElementById(elementId));
 
                 table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+            });
+        }
+
+        function drawChart(elementId, sheetId, gid) {
+            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/' + sheetId + '/gviz/tq?gid=' + gid);
+            query.send(function(response) {
+                if (response.isError()) {
+                    alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                    return;
+                }
+
+                var data = response.getDataTable();
+                var chart = new google.visualization.PieChart(document.getElementById(elementId));
+
+                chart.draw(data, {width: 400, height: 300, title: 'Research Statistics'});
             });
         }
     </script>
