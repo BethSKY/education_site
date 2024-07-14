@@ -15,7 +15,6 @@ header {
     background-color: #3a5a40; /* темно-зеленый фон */
     color: #f8f5f0; /* кремовый текст */
     padding: 2rem 0;
-    border-radius: 0 0 10px 10px;
 }
 
 header h1 {
@@ -80,7 +79,6 @@ footer {
     color: #f8f5f0; /* кремовый текст */
     padding: 1rem 0;
     width: 100%;
-    border-radius: 10px 10px 0 0;
 }
 
 footer p {
