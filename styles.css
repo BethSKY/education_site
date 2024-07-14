@@ -3,26 +3,27 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-    background-color: #f4f4f4;
+    background-color: #f8f5f0; /* кремовый фон */
     line-height: 1.6;
     text-align: center;
 }
 
 header {
-    background-color: rgb(141, 167, 209);
-    color: #fff;
-    padding: 1rem 0;
+    background-color: #3a5a40; /* темно-зеленый фон */
+    color: #f8f5f0; /* кремовый текст */
+    padding: 2rem 0;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    font-weight: normal;
 }
 
 nav {
-    background-color: #444;
-    color: #fff;
-    padding: 0.5rem 0;
+    background-color: #d3cbc0; /* бежевый фон */
+    color: #333;
+    padding: 1rem 0;
 }
 
 nav ul {
@@ -37,25 +38,27 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #333;
     text-decoration: none;
+    font-weight: bold;
 }
 
 section {
     padding: 2rem 1rem;
     margin: 1rem auto;
-    background-color: #fff;
+    background-color: #fff; /* белый фон */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
 }
 
 section h2 {
     margin-top: 0;
+    color: #3a5a40; /* темно-зеленый заголовок */
 }
 
 footer {
-    background-color: rgb(114, 114, 114);
-    color: #fff;
+    background-color: #3a5a40; /* темно-зеленый фон */
+    color: #f8f5f0; /* кремовый текст */
     padding: 1rem 0;
     position: relative;
     width: 100%;
